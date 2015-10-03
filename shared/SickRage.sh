@@ -9,11 +9,11 @@ PYTHON_DIR="/usr/bin"
 #PATH="${QPKG_ROOT}/bin:${QPKG_ROOT}/env/bin:${PYTHON_DIR}/bin:/usr/local/bin:/bin:/usr/bin:/usr/syno/bin"
 PYTHON="${PYTHON_DIR}/python2.7"
 SICKRAGE="${QPKG_ROOT}/SickBeard.py"
-QPKG_DATA=${QPKG_ROOT}/.sickbeard
+QPKG_DATA=${QPKG_ROOT}/.sickrage
 QPKG_CONF=${QPKG_DATA}/config.ini
 WEBUI_PORT=$(${CMD_GETCFG} General web_port -f ${QPKG_CONF})
 if [ -z ${WEBUI_PORT} ] ; then WEBUI_PORT="8086" ; ${CMD_SETCFG} General web_port -f ${QPKG_CONF} ; fi # Default to port 8086
-QPKG_PID=${QPKG_ROOT}/sickbeard-${WEBUI_PORT}.pid
+QPKG_PID=${QPKG_ROOT}/sickrage-${WEBUI_PORT}.pid
 
 start_daemon() {
   ${PYTHON} ${SICKRAGE} --daemon --pidfile=${QPKG_PID} --port=${WEBUI_PORT} --datadir=${QPKG_DATA} --config=${QPKG_CONF}

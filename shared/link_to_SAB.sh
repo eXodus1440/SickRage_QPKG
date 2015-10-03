@@ -52,7 +52,7 @@ if [ "$SAB_INSTALLED" == "complete" ] ; then
     SABnzbdPlus_WEBUI_IP=$($CMD_GETCFG misc host -f ${SABnzbdPlus_Path}/.sabnzbd/sabnzbd.ini)
     if [ "$SABnzbdPlus_WEBUI_HTTPS" = "0" ]; then
       SABnzbdPlus_WEBUI_PORT=$($CMD_GETCFG misc port -f ${SABnzbdPlus_Path}/.sabnzbd/sabnzbd.ini)
-      $CMD_SETCFG SABnzbd sab_host ${SABnzbdPlus_WEBUI_IP}:${SABnzbdPlus_WEBUI_PORT} -f ${SYS_QPKG_DIR}/.sickrage/config.ini
+      $CMD_SETCFG SABnzbd sab_host http://${SABnzbdPlus_WEBUI_IP}:${SABnzbdPlus_WEBUI_PORT} -f ${SYS_QPKG_DIR}/.sickrage/config.ini
     else
       SABnzbdPlus_WEBUI_PORT=$($CMD_GETCFG misc https_port -f ${SABnzbdPlus_Path}/.sabnzbd/sabnzbd.ini)
       #$CMD_SETCFG SABnzbd ssl 1 -f ${SYS_QPKG_DIR}/.sickrage/config.ini
