@@ -11,13 +11,12 @@ PYTHON="${PYTHON_DIR}/python2.7"
 SICKRAGE="${QPKG_ROOT}/SickBeard.py"
 QPKG_DATA=${QPKG_ROOT}/.sickbeard
 QPKG_CONF=${QPKG_DATA}/config.ini
-WEBUI_PORT=$(${CMD_GETCFG} core port -f ${QPKG_CONF})
-if [ -z ${WEBUI_PORT} ] ; then WEBUI_PORT="8086" ; fi # Default to port 5050
-QPKG_PID=${QPKG_ROOT}/couchpotato-${WEBUI_PORT}.pid
+WEBUI_PORT=$(${CMD_GETCFG} General web_port -f ${QPKG_CONF})
+if [ -z ${WEBUI_PORT} ] ; then WEBUI_PORT="8086" ; ${CMD_SETCFG} General web_port -f ${QPKG_CONF} ; fi # Default to port 8086
+QPKG_PID=${QPKG_ROOT}/sickbeard-${WEBUI_PORT}.pid
 
 start_daemon() {
-  #PATH=${PATH} ${PYTHON} ${SICKRAGE} --daemon --pid_file ${QPKG_PID} --data_dir=${QPKG_DATA} --config ${QPKG_CONF}
-  ${PYTHON} ${SICKRAGE} --daemon --pidfile=${QPKG_PID} --datadir=${QPKG_DATA} --config=${QPKG_CONF}
+  ${PYTHON} ${SICKRAGE} --daemon --pidfile=${QPKG_PID} --port=${WEBUI_PORT} --datadir=${QPKG_DATA} --config=${QPKG_CONF}
 }
 
 stop_daemon() {
@@ -55,7 +54,7 @@ case "$1" in
       echo "${QPKG_NAME} is already running"
     else
       #echo "Checking if ${QPKG_NAME} is linked to SABnzbdPlus"
-      #${QPKG_ROOT}/link_to_SAB.sh
+      ${QPKG_ROOT}/link_to_SAB.sh
       echo "Starting ${QPKG_NAME} ..."
       start_daemon
     fi
