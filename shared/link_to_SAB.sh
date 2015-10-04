@@ -91,17 +91,10 @@ if [ "$SAB_INSTALLED" == "complete" ] ; then
     $CMD_SETCFG General use_nzbs 1 -f ${QPKG_CONF}
     $CMD_SETCFG General use_torrents 0 -f ${QPKG_CONF}
     $CMD_SETCFG General nzb_method sabnzbd -f ${QPKG_CONF}
-    #$CMD_SETCFG blackhole enabled 0 -f ${QPKG_ROOT}/.couchpotato/settings.conf
-    #$CMD_SETCFG kickasstorrents enabled 0 -f ${QPKG_ROOT}/.couchpotato/settings.conf
-    #$CMD_SETCFG torrentz enabled 0 -f ${QPKG_ROOT}/.couchpotato/settings.conf
-    #$CMD_SETCFG searcher preferred_method nzb -f ${QPKG_ROOT}/.couchpotato/settings.conf
 
     # Disable the SickRage Updater and setup Wizard
     $CMD_SETCFG General auto_update 0 -f ${QPKG_CONF}
     $CMD_SETCFG General version_notify 0 -f ${QPKG_CONF}
-    
-    #$CMD_SETCFG updater automatic 0 -f ${QPKG_ROOT}/.couchpotato/settings.conf
-    #$CMD_SETCFG core show_wizard 0 -f ${QPKG_ROOT}/.couchpotato/settings.conf
 
     # Set SickRage as linked to SABnzbdPlus
     $CMD_SETCFG General linked_to_sabnzbd 1 -f ${QPKG_DATA}/sabnzbd_link.ini

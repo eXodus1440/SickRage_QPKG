@@ -6,7 +6,6 @@ CMD_SETCFG="/sbin/setcfg"
 QPKG_NAME="SickRage"
 QPKG_ROOT=$(${CMD_GETCFG} ${QPKG_NAME} Install_Path -f ${CONF})
 PYTHON_DIR="/usr/bin"
-#PATH="${QPKG_ROOT}/bin:${QPKG_ROOT}/env/bin:${PYTHON_DIR}/bin:/usr/local/bin:/bin:/usr/bin:/usr/syno/bin"
 PYTHON="${PYTHON_DIR}/python2.7"
 SICKRAGE="${QPKG_ROOT}/SickBeard.py"
 QPKG_DATA=${QPKG_ROOT}/.sickrage
