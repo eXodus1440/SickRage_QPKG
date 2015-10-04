@@ -12,7 +12,7 @@ SICKRAGE="${QPKG_ROOT}/SickBeard.py"
 QPKG_DATA=${QPKG_ROOT}/.sickrage
 QPKG_CONF=${QPKG_DATA}/config.ini
 WEBUI_PORT=$(${CMD_GETCFG} General web_port -f ${QPKG_CONF})
-if [ -z ${WEBUI_PORT} ] ; then WEBUI_PORT="8086" ; ${CMD_SETCFG} General web_port -f ${QPKG_CONF} ; fi # Default to port 8086
+if [ -z ${WEBUI_PORT} ] ; then WEBUI_PORT="8086" ; fi # Default to port 8086
 QPKG_PID=${QPKG_ROOT}/sickrage-${WEBUI_PORT}.pid
 
 start_daemon() {
@@ -53,7 +53,7 @@ case "$1" in
     if daemon_status; then
       echo "${QPKG_NAME} is already running"
     else
-      #echo "Checking if ${QPKG_NAME} is linked to SABnzbdPlus"
+      #echo "Checking if SickRage is linked to SABnzbdPlus"
       ${QPKG_ROOT}/link_to_SAB.sh
       echo "Starting ${QPKG_NAME} ..."
       start_daemon
@@ -66,6 +66,7 @@ case "$1" in
       stop_daemon
     else
       echo "${QPKG_NAME} is not running"
+      if [ -f ${QPKG_PID} ] ; then rm -f ${QPKG_PID} ; fi
     fi
     ;;
 
@@ -80,9 +81,16 @@ case "$1" in
     ;;
 
   relink)
-    ${CMD_SETCFG} core linked_to_sabnzbd 0 -f ${QPKG_CONF}
+    # Stopping SickRage before modifying the config.ini file
+    $0 stop
+
+    # Relinking SickRage to SABnzbdPlus
+    ${CMD_SETCFG} General linked_to_sabnzbd 0 -f ${QPKG_DATA}/sabnzbd_link.ini
     echo "relinking ${QPKG_NAME} to SABnzbdPlus"
     ${QPKG_ROOT}/link_to_SAB.sh
+
+    # Starting SickRage again
+    $0 start
     ;;
 
   restart)
