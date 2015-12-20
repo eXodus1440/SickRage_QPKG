@@ -6,7 +6,7 @@ Steps required to build the package on a QNAP TVS:
     git clone https://github.com/eXodus1440/SickRage_QPKG.git SickRage
     cd SickRage/shared
 
-    git clone https://github.com/SiCKRAGETV/SickRage.git 
+    git clone https://github.com/SickRage/SickRage.git 
     mv SickRage/* SickRage/.* .
     rm -rf SickRage
 
